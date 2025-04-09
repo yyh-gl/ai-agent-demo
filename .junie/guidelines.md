@@ -137,7 +137,9 @@ This project implements a simple TODO application using Spring Boot and Kotlin. 
 - Provides endpoints for listing, creating, updating, toggling, and deleting TODOs
 
 #### HomeController
-- Redirects the root URL to the todos page
+- Handles the root URL ("/") and displays the main page with all TODOs
+- Uses the TodoService to fetch all TODOs
+- Passes the TODOs and a new TodoForm to the Thymeleaf template
 
 #### Thymeleaf Template
 - Displays a list of todos
