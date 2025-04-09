@@ -117,14 +117,24 @@ This project implements a simple TODO application using Spring Boot and Kotlin. 
 
 #### TodoService
 - Provides business logic for todo operations
-- Includes methods for creating, reading, updating, and deleting todos
+- Includes methods for:
+  - Getting all TODOs (`getAllTodos()`)
+  - Getting a TODO by ID (`getTodoById(id: Long)`)
+  - Getting completed TODOs (`getCompletedTodos()`)
+  - Getting incomplete TODOs (`getIncompleteTodos()`)
+  - Creating a new TODO (`createTodo(title: String, dueDate: LocalDate)`)
+  - Updating a TODO (`updateTodo(id: Long, title: String, dueDate: LocalDate, completed: Boolean)`)
+  - Toggling a TODO's completion status (`toggleTodoStatus(id: Long)`)
+  - Deleting a TODO (`deleteTodo(id: Long)`)
 - Uses the repository for data access
+- Follows Spring Boot best practices with proper dependency injection
 
 #### TodoController
 - Handles HTTP requests for todo operations
 - Maps to the "/todos" path
 - Uses the service for business logic
 - Returns Thymeleaf templates for rendering
+- Provides endpoints for listing, creating, updating, toggling, and deleting TODOs
 
 #### HomeController
 - Redirects the root URL to the todos page
