@@ -43,6 +43,8 @@ This style guide outlines the coding conventions and best practices for Kotlin d
 - Create a global exception handler using `@ControllerAdvice`
 - Define custom exceptions for different error scenarios
 - Return appropriate HTTP status codes and error messages
+- Implement validation for form inputs
+- Display user-friendly error messages next to form fields
 
 ## Common Pitfalls to Avoid
 

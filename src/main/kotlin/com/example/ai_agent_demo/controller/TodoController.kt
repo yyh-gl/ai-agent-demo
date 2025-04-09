@@ -2,8 +2,10 @@ package com.example.ai_agent_demo.controller
 
 import com.example.ai_agent_demo.controller.form.TodoForm
 import com.example.ai_agent_demo.service.TodoService
+import jakarta.validation.Valid
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
+import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
 
@@ -12,30 +14,62 @@ import java.time.LocalDate
 class TodoController(private val todoService: TodoService) {
 
     @GetMapping
-    fun listTodos(model: Model): String {
+    fun listTodos(model: Model, @RequestParam(required = false) success: Boolean?): String {
         model.addAttribute("todos", todoService.getAllTodos())
-        model.addAttribute("todoForm", TodoForm())
+
+        // Set initial values for the form - default due date to tomorrow
+        val tomorrow = LocalDate.now().plusDays(1)
+        model.addAttribute("todoForm", TodoForm(dueDate = tomorrow))
+
+        // Add success message if form was submitted successfully
+        if (success == true) {
+            model.addAttribute("successMessage", "Todoが正常に保存されました")
+        }
+
         return "index"
     }
 
     @GetMapping("/completed")
-    fun listCompletedTodos(model: Model): String {
+    fun listCompletedTodos(model: Model, @RequestParam(required = false) success: Boolean?): String {
         model.addAttribute("todos", todoService.getCompletedTodos())
-        model.addAttribute("todoForm", TodoForm())
+
+        // Set initial values for the form - default due date to tomorrow
+        val tomorrow = LocalDate.now().plusDays(1)
+        model.addAttribute("todoForm", TodoForm(dueDate = tomorrow))
+
+        // Add success message if form was submitted successfully
+        if (success == true) {
+            model.addAttribute("successMessage", "Todoが正常に保存されました")
+        }
+
         return "index"
     }
 
     @GetMapping("/incomplete")
-    fun listIncompleteTodos(model: Model): String {
+    fun listIncompleteTodos(model: Model, @RequestParam(required = false) success: Boolean?): String {
         model.addAttribute("todos", todoService.getIncompleteTodos())
-        model.addAttribute("todoForm", TodoForm())
+
+        // Set initial values for the form - default due date to tomorrow
+        val tomorrow = LocalDate.now().plusDays(1)
+        model.addAttribute("todoForm", TodoForm(dueDate = tomorrow))
+
+        // Add success message if form was submitted successfully
+        if (success == true) {
+            model.addAttribute("successMessage", "Todoが正常に保存されました")
+        }
+
         return "index"
     }
 
     @PostMapping
-    fun createTodo(@ModelAttribute todoForm: TodoForm): String {
+    fun createTodo(@Valid @ModelAttribute todoForm: TodoForm, bindingResult: BindingResult, model: Model): String {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("todos", todoService.getAllTodos())
+            return "index"
+        }
         todoService.createTodo(todoForm.title, todoForm.dueDate)
-        return "redirect:/todos"
+        // Redirect with a flash attribute to clear the form
+        return "redirect:/todos?success=true"
     }
 
     @GetMapping("/{id}/edit")
@@ -52,14 +86,18 @@ class TodoController(private val todoService: TodoService) {
     }
 
     @PostMapping("/{id}")
-    fun updateTodo(@PathVariable id: Long, @ModelAttribute todoForm: TodoForm): String {
+    fun updateTodo(@PathVariable id: Long, @Valid @ModelAttribute todoForm: TodoForm, bindingResult: BindingResult, model: Model): String {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("todos", todoService.getAllTodos())
+            return "index"
+        }
         todoService.updateTodo(
             id = id,
             title = todoForm.title,
             dueDate = todoForm.dueDate,
             completed = todoForm.completed
         )
-        return "redirect:/todos"
+        return "redirect:/todos?success=true"
     }
 
     @PostMapping("/{id}/toggle")
