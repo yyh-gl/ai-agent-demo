@@ -1,0 +1,9 @@
+/* Tailwind CSS via CDN */
+@import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
+
+/* Custom styles */
+.container {
+    max-width: 1200px;
+}
+
+/* Additional custom styles can be added here */

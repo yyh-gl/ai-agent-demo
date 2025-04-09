@@ -90,3 +90,56 @@ This style guide outlines the coding conventions and best practices for Kotlin d
 - Use descriptive test method names that explain the scenario and expected outcome
 - Prefer using JUnit 5 and MockK for testing
 - Structure tests using the Arrange-Act-Assert pattern
+
+## TODO Application Implementation
+
+This project implements a simple TODO application using Spring Boot and Kotlin. Below is an overview of the implementation:
+
+### Project Structure
+
+- **Model**: `Todo` entity with id, title, dueDate, and completed attributes
+- **Repository**: `TodoRepository` interface extending JpaRepository
+- **Service**: `TodoService` providing business logic for Todo operations
+- **Controller**: `TodoController` handling HTTP requests and `HomeController` for redirecting
+- **View**: Thymeleaf template for the main page
+- **CSS**: Tailwind CSS via CDN for styling
+
+### Key Components
+
+#### Todo Entity
+- Represents a todo item with id, title, due date, and completion status
+- Implemented as a Kotlin data class with JPA annotations
+
+#### TodoRepository
+- Extends Spring Data JPA's JpaRepository
+- Provides CRUD operations for Todo entities
+- Includes a custom method for finding todos by completion status
+
+#### TodoService
+- Provides business logic for todo operations
+- Includes methods for creating, reading, updating, and deleting todos
+- Uses the repository for data access
+
+#### TodoController
+- Handles HTTP requests for todo operations
+- Maps to the "/todos" path
+- Uses the service for business logic
+- Returns Thymeleaf templates for rendering
+
+#### HomeController
+- Redirects the root URL to the todos page
+
+#### Thymeleaf Template
+- Displays a list of todos
+- Provides a form for creating and editing todos
+- Includes actions for toggling status and deleting todos
+
+### Database Configuration
+- Uses H2 in-memory database
+- Configured in application.properties
+- H2 console available at /h2-console
+
+### UI Styling
+- Uses Tailwind CSS via CDN
+- Responsive design for various screen sizes
+- Clean and modern user interface
