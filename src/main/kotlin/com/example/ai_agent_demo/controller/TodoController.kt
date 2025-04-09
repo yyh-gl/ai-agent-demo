@@ -15,21 +15,21 @@ class TodoController(private val todoService: TodoService) {
     fun listTodos(model: Model): String {
         model.addAttribute("todos", todoService.getAllTodos())
         model.addAttribute("todoForm", TodoForm())
-        return "todos"
+        return "index"
     }
 
     @GetMapping("/completed")
     fun listCompletedTodos(model: Model): String {
         model.addAttribute("todos", todoService.getCompletedTodos())
         model.addAttribute("todoForm", TodoForm())
-        return "todos"
+        return "index"
     }
 
     @GetMapping("/incomplete")
     fun listIncompleteTodos(model: Model): String {
         model.addAttribute("todos", todoService.getIncompleteTodos())
         model.addAttribute("todoForm", TodoForm())
-        return "todos"
+        return "index"
     }
 
     @PostMapping
@@ -48,7 +48,7 @@ class TodoController(private val todoService: TodoService) {
             completed = todo.completed
         ))
         model.addAttribute("todos", todoService.getAllTodos())
-        return "todos"
+        return "index"
     }
 
     @PostMapping("/{id}")

@@ -133,18 +133,21 @@ This project implements a simple TODO application using Spring Boot and Kotlin. 
 - Handles HTTP requests for todo operations
 - Maps to the "/todos" path
 - Uses the service for business logic
-- Returns Thymeleaf templates for rendering
+- Returns the "index" Thymeleaf template for rendering
 - Provides endpoints for listing, creating, updating, toggling, and deleting TODOs
 
 #### HomeController
 - Handles the root URL ("/") and displays the main page with all TODOs
 - Uses the TodoService to fetch all TODOs
-- Passes the TODOs and a new TodoForm to the Thymeleaf template
+- Passes the TODOs and a new TodoForm to the "index" Thymeleaf template
 
 #### Thymeleaf Template
-- Displays a list of todos
-- Provides a form for creating and editing todos
-- Includes actions for toggling status and deleting todos
+- Main template is `index.html` which displays:
+  - A list of todos with title, due date, and completion status
+  - Completed TODOs have a strikethrough on the title
+  - A form for creating and editing todos with title input and date picker
+- Includes JavaScript for auto-submitting when checkbox state changes
+- Includes actions for toggling status, editing, and deleting todos
 
 ### Database Configuration
 - Uses H2 in-memory database

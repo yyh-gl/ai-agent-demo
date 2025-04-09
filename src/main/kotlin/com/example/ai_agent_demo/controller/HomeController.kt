@@ -13,6 +13,6 @@ class HomeController(private val todoService: TodoService) {
     fun home(model: Model): String {
         model.addAttribute("todos", todoService.getAllTodos())
         model.addAttribute("todoForm", TodoForm())
-        return "todos"
+        return "index"
     }
 }
