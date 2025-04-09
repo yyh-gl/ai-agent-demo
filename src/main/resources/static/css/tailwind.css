@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles */
+.container {
+    max-width: 1200px;
+}
+
+/* Additional custom styles can be added here */

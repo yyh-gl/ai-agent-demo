@@ -155,6 +155,8 @@ This project implements a simple TODO application using Spring Boot and Kotlin. 
 - H2 console available at /h2-console
 
 ### UI Styling
-- Uses Tailwind CSS via CDN
+- Uses Tailwind CSS integrated into the build process
+- PostCSS with Tailwind CSS and Autoprefixer for CSS processing
 - Responsive design for various screen sizes
 - Clean and modern user interface
+- Hot-reloading CSS during development with Gradle tasks

@@ -3,6 +3,7 @@ plugins {
     kotlin("plugin.spring") version "1.9.25"
     id("org.springframework.boot") version "3.4.4"
     id("io.spring.dependency-management") version "1.1.7"
+    id("com.github.node-gradle.node") version "3.5.1"
 }
 
 group = "com.example"
@@ -38,4 +39,42 @@ kotlin {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+// Node configuration for Tailwind CSS
+node {
+    version.set("18.16.0")
+    download.set(true)
+    nodeProjectDir.set(file("${project.projectDir}"))
+}
+
+// Task to install npm dependencies
+tasks.register<com.github.gradle.node.npm.task.NpmTask>("npmInstall") {
+    description = "Install npm dependencies"
+    args.set(listOf("install"))
+}
+
+// Task to build CSS with Tailwind
+tasks.register<com.github.gradle.node.npm.task.NpmTask>("buildCss") {
+    description = "Build CSS with Tailwind"
+    args.set(listOf("run", "build:css"))
+    dependsOn("npmInstall")
+}
+
+// Task to watch CSS changes during development
+tasks.register<com.github.gradle.node.npm.task.NpmTask>("watchCss") {
+    description = "Watch CSS changes with Tailwind"
+    args.set(listOf("run", "watch:css"))
+    dependsOn("npmInstall")
+}
+
+// Make the processResources task depend on buildCss
+tasks.named("processResources") {
+    dependsOn("buildCss")
+}
+
+// Add a bootRun task that watches CSS changes
+tasks.register("bootRunWithCssWatch") {
+    description = "Run the application with CSS watching"
+    dependsOn("bootRun", "watchCss")
 }
