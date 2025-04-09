@@ -90,6 +90,19 @@ This style guide outlines the coding conventions and best practices for Kotlin d
 - Use descriptive test method names that explain the scenario and expected outcome
 - Prefer using JUnit 5 and MockK for testing
 - Structure tests using the Arrange-Act-Assert pattern
+- Test coverage includes:
+  - Unit tests for services and controllers
+  - Integration tests for endpoints and database operations
+  - Tests for all CRUD operations (Create, Read, Update, Delete)
+  - Edge cases and error handling
+
+#### Test Structure
+- **Unit Tests**:
+  - `TodoServiceTest`: Tests for the service layer with mocked repository
+  - `TodoControllerTest`: Tests for the controller layer with mocked service
+- **Integration Tests**:
+  - `TodoControllerIntegrationTest`: End-to-end tests for controller endpoints
+  - `TodoRepositoryIntegrationTest`: Tests for repository operations with test database
 
 ## TODO Application Implementation
 

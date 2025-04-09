@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm") version "1.9.25"
     kotlin("plugin.spring") version "1.9.25"
+    kotlin("plugin.jpa") version "1.9.25"
     id("org.springframework.boot") version "3.4.4"
     id("io.spring.dependency-management") version "1.1.7"
     id("com.github.node-gradle.node") version "3.5.1"
@@ -46,12 +47,6 @@ node {
     version.set("18.16.0")
     download.set(true)
     nodeProjectDir.set(file("${project.projectDir}"))
-}
-
-// Task to install npm dependencies
-tasks.register<com.github.gradle.node.npm.task.NpmTask>("npmInstall") {
-    description = "Install npm dependencies"
-    args.set(listOf("install"))
 }
 
 // Task to build CSS with Tailwind
