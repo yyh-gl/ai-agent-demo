@@ -175,3 +175,81 @@ This project implements a simple TODO application using Spring Boot and Kotlin. 
 - Responsive design for various screen sizes
 - Clean and modern user interface
 - Hot-reloading CSS during development with Gradle tasks
+
+## Application Testing and Debugging Guide
+
+### Starting the Application
+1. Run the application using Gradle:
+   ```
+   ./gradlew bootRun
+   ```
+2. Verify the application starts without errors
+3. Check the logs to confirm the application is running on port 8081:
+   ```
+   o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+   ```
+4. Verify the H2 database is initialized:
+   ```
+   o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:tododb'
+   ```
+
+### Accessing the Application
+1. Open a web browser and navigate to `http://localhost:8081`
+2. You should see the Todo App interface with:
+   - A form to add new TODOs
+   - A table displaying existing TODOs (empty on first run)
+   - Filter buttons for All, Completed, and Incomplete TODOs
+
+### Testing Functionality
+1. **Creating a new TODO**:
+   - Enter a title in the "Title" field
+   - Select a due date using the date picker
+   - Click the "Save" button
+   - Verify the new TODO appears in the table
+   - Check for the success message "Todoが正常に保存されました"
+
+2. **Toggling TODO completion status**:
+   - Find a TODO in the table
+   - Click the checkbox in the "Status" column
+   - Verify the TODO's appearance changes:
+     - Completed TODOs have a strikethrough on the title
+     - The status badge changes from "Pending" to "Completed"
+     - The row background changes to a light green color
+
+3. **Editing a TODO**:
+   - Click the "Edit" link for a TODO
+   - Modify the title and/or due date
+   - Click the "Save" button
+   - Verify the changes are reflected in the table
+
+4. **Deleting a TODO**:
+   - Click the "Delete" link for a TODO
+   - Confirm the deletion in the popup dialog
+   - Verify the TODO is removed from the table
+
+5. **Filtering TODOs**:
+   - Click the "Completed" button to view only completed TODOs
+   - Click the "Incomplete" button to view only incomplete TODOs
+   - Click the "All" button to view all TODOs
+
+### Debugging
+1. **Checking logs**:
+   - Application logs are output to the console when running with `./gradlew bootRun`
+   - For more detailed logs, run with the `--debug` flag:
+     ```
+     ./gradlew bootRun --debug
+     ```
+
+2. **Accessing the H2 Console**:
+   - Navigate to `http://localhost:8081/h2-console`
+   - Use the following connection details:
+     - JDBC URL: `jdbc:h2:mem:tododb`
+     - Username: `sa`
+     - Password: `password`
+   - You can execute SQL queries to inspect the database
+
+3. **Common Issues and Solutions**:
+   - **Port already in use**: Change the port in `application.properties`
+   - **Database errors**: Check the H2 console for database state
+   - **Form validation errors**: Check the error messages displayed next to form fields
+   - **UI not updating**: Ensure Thymeleaf caching is disabled in development
